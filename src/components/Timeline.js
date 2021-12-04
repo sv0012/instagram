@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+// import { useContext } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import usePhotos from '../hooks/usePhotos';
+import Post from './post';
 
 const Timeline = () => {
+    const { photos } = usePhotos();
+  
     return (
-        <div>
-            <p>Timeline</p>
+        <div className="container col-span-2" >
+            {!photos ?(
+        <Skeleton count={2} width={640} height={500} className="mb-5" />
+      ) : photos?.length > 0 ?(
+        photos.map((content) => <Post key={content.docId} content={content} />) 
+      ) :  (
+        <p className="flex justify-center font-bold">Follow other people to see Photos</p>    
+      ) }
         </div>
     )
 }
