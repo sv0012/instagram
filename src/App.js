@@ -6,6 +6,9 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import useAuthListener from "./hooks/useAuthListener";
 import UserContext from "./context/user";
+import IsUserLoggedIn from "./helpers/IsUserLoggedIn";
+import ProtectedRoute from "./helpers/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -21,9 +24,18 @@ function App() {
       <Router>
         <Suspense fallback = {<p>Loading... </p> }>
           <Switch>
-            <Route path={ROUTES.LOGIN} component={Login} />
-            <Route path={ROUTES.SIGN_UP} component={Signup} />
-            <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+            <IsUserLoggedIn user={user} path={ROUTES.LOGIN} loggedInPath={ROUTES.DASHBOARD} exact>
+            <Login />
+            </IsUserLoggedIn>
+            
+            <IsUserLoggedIn user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.DASHBOARD} exact>
+            <Signup />
+            </IsUserLoggedIn>
+            <Route path={ROUTES.PROFILE} component={Profile}/>
+            <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
+            <Dashboard />
+            </ProtectedRoute>
+            
             <Route component={NotFound} />
           </Switch>
         </Suspense>
