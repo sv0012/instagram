@@ -9,6 +9,7 @@ import UserContext from "./context/user";
 import IsUserLoggedIn from "./helpers/IsUserLoggedIn";
 import ProtectedRoute from "./helpers/ProtectedRoute";
 import Profile from "./pages/Profile";
+import ImageUpload from "./pages/ImageUpload";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const Signup = lazy(() => import('./pages/Signup'));
   const Dashboard = lazy(() => import('./pages/Dashboard'));
   const NotFound = lazy(()=>import('./pages/NotFound'));
+  
   return (
    
     <div className = "App" >
@@ -34,10 +36,14 @@ function App() {
             <ProtectedRoute path={ROUTES.PROFILE} user={user} exact>
             <Profile />
             </ProtectedRoute>
+            <ProtectedRoute path={ROUTES.IMAGE_UPLOAD} user={user} exact>
+            <ImageUpload user={user}/>
+            </ProtectedRoute>
            
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
             <Dashboard />
             </ProtectedRoute>
+            <Route path={ROUTES.IMAGE_UPLOAD} component={ImageUpload} />
             
             <Route component={NotFound} />
           </Switch>

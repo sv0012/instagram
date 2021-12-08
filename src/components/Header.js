@@ -3,6 +3,7 @@ import FirebaseContext from '../context/firebase';
 import UserContext from '../context/user';
 import * as ROUTES from '../constants/routes'
 import { Link } from 'react-router-dom';
+import { DEFAULT_IMAGE_PATH } from '../constants/paths';
 
 
 
@@ -10,7 +11,7 @@ const Header = () => {
     const { firebase } = useContext(FirebaseContext);
     const { user } = useContext(UserContext);
     return (
-        <header className="h-16 bg-white border-b border-gray-primary mb-8">
+        <header className="h-16 bg-white border-b border-gray-primary mb-8 sticky top-0">
             <div className="container mx-auto max-w-screen-lg h-full">
                 <div className="flex justify-between h-full">
                     <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
@@ -41,6 +42,13 @@ const Header = () => {
                                         />
                                     </svg>
                                 </Link>
+                                <Link to={ROUTES.IMAGE_UPLOAD} aria-label="ImageUpload">
+                                    <svg 
+                                    className="w-8 mr-6 text-black-light cursor-pointer"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                    </svg>
+                                </Link>
                                 <button type="button"
                                     title="SignOut"
                                     onClick={() => firebase.auth().signOut()}
@@ -67,11 +75,14 @@ const Header = () => {
                                     </svg>
                                 </button>
                                 <div className="flex items-center cursor-pointer">
-                                    <Link to={`/p/${user?.username}`}>
+                                    <Link to={`/p/${user?.displayName}`}>
                                         <img
                                             className="rounded-full h-8 w-8 flex"
                                             src={`/images/avatars/${user.displayName}.jpg`}
                                             alt={`${user.displayName} profile`}
+                                            onError={(e) => {
+                                                e.target.src = DEFAULT_IMAGE_PATH;
+                                            }}
                                         />
                                     </Link>
                                 </div>

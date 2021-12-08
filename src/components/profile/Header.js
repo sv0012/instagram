@@ -5,6 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/useUser';
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
 import UserContext from '../../context/user';
+import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
 
 const Header = (
     {
@@ -52,7 +53,9 @@ const Header = (
                         className="rounded-full h-40 w-40 flex"
                         alt={`${fullName} profile picture`}
                         src={`/images/avatars/${profileUsername}.jpg`}
-                       
+                        onError={(e) => {
+                            e.target.src = DEFAULT_IMAGE_PATH;
+                          }}
                     />
                 ) : (
                     <Skeleton circle height={150} width={150} count={1} />
@@ -123,3 +126,6 @@ Header.propTypes = {
       following: PropTypes.array
     }).isRequired
   };
+
+
+  

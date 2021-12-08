@@ -2,9 +2,13 @@ import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Timeline from '../components/Timeline';
 import Sidebar from '../components/sidebar';
+import useUser from '../hooks/useUser';
 
 
 const Dashboard = () => {
+    
+    
+    
     useEffect(() => {
         document.title = 'Instagram';
       }, []);

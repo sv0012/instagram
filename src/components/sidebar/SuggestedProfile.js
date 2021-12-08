@@ -7,6 +7,9 @@ import {
   updateFollowedUserFollowers,
   getUserByUserId
 } from '../../services/firebase';
+import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
+
+
 
 const SuggestedProfile = ({
   profileDocId,
@@ -21,8 +24,7 @@ const SuggestedProfile = ({
     setFollowed(true);
     await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
     await updateFollowedUserFollowers(profileDocId, userId, false);
-    // const [user] = await getUserByUserId(userId);
-    // setActiveUser(user);
+   
   }
 
 
@@ -34,6 +36,9 @@ const SuggestedProfile = ({
           className="rounded-full w-8 flex mr-3"
           src={`/images/avatars/${username}.jpg`}
           alt=""
+          onError={(e) => {
+            e.target.src = DEFAULT_IMAGE_PATH;
+          }}
 
         />
         <Link to={`/p/${username}`}>
