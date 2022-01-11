@@ -40,6 +40,7 @@ const Signup = () => {
                     emailAddress: emailAddress.toLowerCase(),
                     following: [],
                     followers: [],
+                    imageSrc: "",
                     dateCreated : Date.now()
                 });
 

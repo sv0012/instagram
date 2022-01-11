@@ -11,8 +11,7 @@ const Post = ({ content }) => {
 
     const commentInput = useRef(null);
     const handleFocus = () => commentInput.current.focus();
-
-    
+  
     
 
 

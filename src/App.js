@@ -10,6 +10,7 @@ import IsUserLoggedIn from "./helpers/IsUserLoggedIn";
 import ProtectedRoute from "./helpers/ProtectedRoute";
 import Profile from "./pages/Profile";
 import ImageUpload from "./pages/ImageUpload";
+import PropicUpload from "./pages/PropicUpload";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const NotFound = lazy(()=>import('./pages/NotFound'));
   
   return (
+    
    
     <div className = "App" >
       <UserContext.Provider value={{user}}>
@@ -39,11 +41,14 @@ function App() {
             <ProtectedRoute path={ROUTES.IMAGE_UPLOAD} user={user} exact>
             <ImageUpload user={user}/>
             </ProtectedRoute>
+            <ProtectedRoute path={ROUTES.PROPIC_UPLOAD} user={user} exact>
+            <PropicUpload user={user}/>
+            </ProtectedRoute>
            
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
             <Dashboard />
             </ProtectedRoute>
-            <Route path={ROUTES.IMAGE_UPLOAD} component={ImageUpload} />
+            
             
             <Route component={NotFound} />
           </Switch>

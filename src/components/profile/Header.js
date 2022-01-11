@@ -6,6 +6,8 @@ import useUser from '../../hooks/useUser';
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
 import UserContext from '../../context/user';
 import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes'
 
 const Header = (
     {
@@ -15,6 +17,7 @@ const Header = (
         profile: {
             docId: profileDocId,
             userId: profileUserId,
+            imageSrc : profilePic,
             fullName,
             followers,
             following,
@@ -26,6 +29,8 @@ const Header = (
     const { user } = useUser(loggedInUser?.uid);
     const [isFollowingProfile, setIsFollowingProfile] = useState(null);
     const activeBtnFollow = user?.username && user?.username !== profileUsername;
+    
+
 
     const handleToggleFollow = async () => {
         setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -34,6 +39,7 @@ const Header = (
         });
         await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId);
     };
+    
 
     useEffect(() => {
         const isLoggedInUserFollowingProfile = async () => {
@@ -47,16 +53,30 @@ const Header = (
     }, [user?.username, profileUserId]);
     return (
         <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
-            <div className="container flex justify-center items-center">
+            <div className="container flex justify-center items-center relative">
                 {profileUsername ? (
-                    <img
-                        className="rounded-full h-40 w-40 flex"
-                        alt={`${fullName} profile picture`}
-                        src={`/images/avatars/${profileUsername}.jpg`}
-                        onError={(e) => {
-                            e.target.src = DEFAULT_IMAGE_PATH;
-                          }}
-                    />
+                    <>
+                        <img
+                            className="rounded-full h-40 w-40 flex absolute top-0 bottom-0 left-0 right-0"
+                            alt={`${fullName} profile picture`}
+                            src={profilePic}
+                            onError={(e) => {
+                                e.target.src = DEFAULT_IMAGE_PATH;
+                            }}
+                        />
+                       {user.username === profileUsername &&  <>
+                        <Link to={ROUTES.PROPIC_UPLOAD} aria-label="PropicUpload">
+                            <button className='absolute bottom-3/4'>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </button>
+                        </Link>
+                       </>}
+
+                    </>
+
+
                 ) : (
                     <Skeleton circle height={150} width={150} count={1} />
                 )}
@@ -118,14 +138,13 @@ Header.propTypes = {
     followerCount: PropTypes.number.isRequired,
     setFollowerCount: PropTypes.func.isRequired,
     profile: PropTypes.shape({
-      docId: PropTypes.string,
-      userId: PropTypes.string,
-      fullName: PropTypes.string,
-      username: PropTypes.string,
-      followers: PropTypes.array,
-      following: PropTypes.array
+        docId: PropTypes.string,
+        userId: PropTypes.string,
+        fullName: PropTypes.string,
+        username: PropTypes.string,
+        followers: PropTypes.array,
+        following: PropTypes.array
     }).isRequired
-  };
+};
 
 
-  

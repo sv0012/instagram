@@ -13,7 +13,6 @@ const Profile = ({ user }) => {
         photosCollection: null,
         followerCount: 0
     };
-
     const [{ profile, photosCollection, followerCount }, dispatch] = useReducer(
         reducer,
         initialState

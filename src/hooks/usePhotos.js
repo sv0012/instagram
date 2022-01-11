@@ -28,7 +28,8 @@ const usePhotos = (user) => {
       }
   
       getTimelinePhotos();
-    }, [userId]);
+      
+    }, [userId,photos]);
 
 
     return { photos };

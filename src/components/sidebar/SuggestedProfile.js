@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {
   updateLoggedInUserFollowing,
   updateFollowedUserFollowers,
-  getUserByUserId
+
 } from '../../services/firebase';
 import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
 
@@ -13,6 +13,7 @@ import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
 
 const SuggestedProfile = ({
   profileDocId,
+  profilePic,
   username,
   profileId,
   userId,
@@ -34,7 +35,7 @@ const SuggestedProfile = ({
       <div className="flex items-center justify-between">
         <img
           className="rounded-full w-8 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
+          src={profilePic}
           alt=""
           onError={(e) => {
             e.target.src = DEFAULT_IMAGE_PATH;

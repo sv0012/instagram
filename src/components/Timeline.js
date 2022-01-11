@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-// import { useContext } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import usePhotos from '../hooks/usePhotos';
+import useUser from '../hooks/useUser'
 import Post from './post';
 
 
 const Timeline = () => {
     const { photos } = usePhotos();
 
-    useEffect(() => {
-      
-    }, [photos])
-  
+    
+
+    
     return (
         <div className="container col-span-2" >
             {!photos ?(

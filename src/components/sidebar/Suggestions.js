@@ -18,6 +18,7 @@ const Suggestions = ({ userId, following, loggedInUserDocId }) => {
       suggestedProfiles();
     }
   }, [userId]);
+  
   // use the firebase service (call using userId)
   // getSuggestedProfiles
   // call the async function ^^^^ within useEffect
@@ -35,6 +36,7 @@ const Suggestions = ({ userId, following, loggedInUserDocId }) => {
           <SuggestedProfile
             key={profile.docId}
             profileDocId={profile.docId}
+            profilePic={profile.imageSrc}
             username={profile.username}
             profileId={profile.userId}
             userId={userId}

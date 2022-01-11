@@ -1,15 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FirebaseContext from '../context/firebase';
 import UserContext from '../context/user';
 import * as ROUTES from '../constants/routes'
 import { Link } from 'react-router-dom';
 import { DEFAULT_IMAGE_PATH } from '../constants/paths';
+import { getUserByUserId } from '../services/firebase';
 
 
 
 const Header = () => {
     const { firebase } = useContext(FirebaseContext);
     const { user } = useContext(UserContext);
+    const [activeUser, setActiveUser] = useState();
+    useEffect(() => {
+        async function getUserObjByUserId() {
+            //we need a func that we can call(firebase service) that gets the user data based on id 
+            const [response] = await getUserByUserId(user.uid);
+            setActiveUser(response);
+            
+        }
+        if(user?.uid){
+            getUserObjByUserId();
+        }
+      }, [user])
+    
+    
     return (
         <header className="h-16 bg-white border-b border-gray-primary mb-8 sticky top-0">
             <div className="container mx-auto max-w-screen-lg h-full">
@@ -78,7 +93,7 @@ const Header = () => {
                                     <Link to={`/p/${user?.displayName}`}>
                                         <img
                                             className="rounded-full h-8 w-8 flex"
-                                            src={`/images/avatars/${user.displayName}.jpg`}
+                                            src={activeUser?.imageSrc}
                                             alt={`${user.displayName} profile`}
                                             onError={(e) => {
                                                 e.target.src = DEFAULT_IMAGE_PATH;
