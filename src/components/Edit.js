@@ -29,7 +29,8 @@ const Edit = ({ caption, imageSrc, docId }) => {
    
     const uploadImage = (e) => {
         e.preventDefault();
-        const uploadTask = storage.ref(`images/${editImage.name}`).put(editImage);
+        if(editImage) {
+            const uploadTask = storage.ref(`images/${editImage.name}`).put(editImage);
         
         uploadTask.on(
             "state_changed",
@@ -60,7 +61,23 @@ const Edit = ({ caption, imageSrc, docId }) => {
                     
             }
         );
+        } else {
+            try {
+                firebase.firestore().collection('photos').doc(docId).update({
+                    imageSrc: preview,
+                    caption: editCaption,
+                });
 
+                history.push(ROUTES.DASHBOARD);
+
+            } catch (error) {
+                setEditCaption('');
+                setPreview('');
+            }
+
+        }
+
+        
         
   
     };
