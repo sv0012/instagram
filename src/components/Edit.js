@@ -116,7 +116,7 @@ const Edit = ({ caption, imageSrc, docId }) => {
                     </label>
                 </div>
                 <button disabled={isInvalid} type="submit" className={`bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50 cursor-default'}`} >
-                    Upload Image
+                    Edit Post
                 </button>
             </form>
         </div>
