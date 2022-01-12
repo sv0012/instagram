@@ -8,6 +8,7 @@ import { storage } from '../lib/firebase';
 const Edit = ({ caption, imageSrc, docId }) => {
     const { firebase } = useContext(FirebaseContext);
     const history = useHistory();
+    const [prevCaption, setPrevCaption] = useState(false);
     const [editCaption, setEditCaption] = useState(caption);
     const [editImage, setEditImage] = useState();
     const isInvalid = editCaption === '' || editImage === '';
@@ -25,11 +26,16 @@ const Edit = ({ caption, imageSrc, docId }) => {
         
     }
 
+    const handleCaption = async (e) => {      
+      setEditCaption(e.target.value)
+        setPrevCaption(true);
+    }
+
 
    
     const uploadImage = (e) => {
         e.preventDefault();
-        if(editImage) {
+        if (editImage && prevCaption){
             const uploadTask = storage.ref(`images/${editImage.name}`).put(editImage);
         
         uploadTask.on(
@@ -61,10 +67,46 @@ const Edit = ({ caption, imageSrc, docId }) => {
                     
             }
         );
-        } else {
+            console.log('both was updated')
+        }
+        else if(editImage) {
+            const uploadTask = storage.ref(`images/${editImage.name}`).put(editImage);
+        
+        uploadTask.on(
+            "state_changed",
+            snapshot => { },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(editImage.name)
+                    .getDownloadURL()
+                    .then(durl => {
+                        try {
+                            firebase.firestore().collection('photos').doc(docId).update({
+                                imageSrc: durl,
+                                
+                            });
+            
+                            history.push(ROUTES.DASHBOARD);
+            
+                        } catch (error) {
+                            
+                            setEditImage('');
+                        }
+                       
+                    });
+                    
+            }
+        );
+        console.log('image was updated')
+        }
+         else if (prevCaption){
             try {
                 firebase.firestore().collection('photos').doc(docId).update({
-                    imageSrc: preview,
+                    
                     caption: editCaption,
                 });
 
@@ -72,8 +114,15 @@ const Edit = ({ caption, imageSrc, docId }) => {
 
             } catch (error) {
                 setEditCaption('');
-                setPreview('');
+               
             }
+            console.log('caption was updated')
+
+        }
+        else {
+
+            history.push(ROUTES.DASHBOARD);
+            console.log('nothing was updated')
 
         }
 
@@ -102,8 +151,9 @@ const Edit = ({ caption, imageSrc, docId }) => {
                         aria-label="Caption"
                         type="text"
                         placeholder="Enter the caption"
+                        size='50'
                         className="text-sm text-gray-base w-full justify-center mx-auto py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-                        onChange={(e) => setEditCaption(e.target.value)}
+                        onChange={handleCaption}
                         value={editCaption}
                     />
                 </div>
