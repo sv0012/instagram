@@ -11,14 +11,14 @@ const Comments = ({ docId, comments: allComments, posted, commentInput }) => {
       <>
       <div className="p-4 pt-1 pb-4">
           {comments.length >= 3 && (
-              <p className="text-sm text-gray-base mb-1 cursor-pointer">
+              <p className="text-sm text-gray-base mb-1">
                   View all {comments.length} comments
               </p>
           )
 
           }
 
-            {comments.slice(0, 3).map((item) => (
+            {comments.slice(0, 10).map((item) => (
           <p key={`${item.comment}-${item.displayName}`} className="mb-1">
             <Link to={`/p/${item.displayName}`}>
               <span className="mr-1 font-bold">{item.displayName}</span>
