@@ -23,7 +23,7 @@ const Header = () => {
             getUserObjByUserId();
         }
       }, [user])
-    
+   
     
     return (
         <header className="h-16 bg-white border-b border-gray-primary mb-8 sticky top-0">

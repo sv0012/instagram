@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import UserContext from '../context/user';
-import { getPhotos, getUserByUserId } from '../services/firebase';
+import { getFollowedPhotos, getUserByUserId, getUserPhotos } from '../services/firebase';
 
 
 const usePhotos = (user) => {
@@ -15,22 +15,34 @@ const usePhotos = (user) => {
       async function getTimelinePhotos() {
        const [{ following }] = await getUserByUserId(userId);
        let followedUserPhotos = [];
+       let userPhotos = [];
+       let followedAndUserPhotos = [];
 
       
        //does the user follow people
         if(following.length > 0) {
-          followedUserPhotos = await getPhotos(userId,following);
-        }
+          followedUserPhotos = await getFollowedPhotos(userId,following);
 
-        followedUserPhotos.sort((a,b)=>b.dateCreated - a.dateCreated);
-        setPhotos(followedUserPhotos);
+        }
+        
+
+        userPhotos = await getUserPhotos(userId);
+
+       
+
+        
+        followedAndUserPhotos = [...followedUserPhotos,...userPhotos];
+      
+
+        followedAndUserPhotos.sort((a,b)=>b.dateCreated - a.dateCreated);
+        setPhotos(followedAndUserPhotos);
 
       }
   
       getTimelinePhotos();
       
     }, [userId,photos]);
-
+    
 
     return { photos };
 }

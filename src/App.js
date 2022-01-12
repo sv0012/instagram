@@ -11,6 +11,7 @@ import ProtectedRoute from "./helpers/ProtectedRoute";
 import Profile from "./pages/Profile";
 import ImageUpload from "./pages/ImageUpload";
 import PropicUpload from "./pages/PropicUpload";
+import EditPost from "./pages/EditPost";
 
 
 function App() {
@@ -42,11 +43,14 @@ function App() {
             <ImageUpload user={user}/>
             </ProtectedRoute>
             <ProtectedRoute path={ROUTES.PROPIC_UPLOAD} user={user} exact>
-            <PropicUpload user={user}/>
+            <PropicUpload />
             </ProtectedRoute>
            
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
             <Dashboard />
+            </ProtectedRoute>
+            <ProtectedRoute path={ROUTES.EDIT_POST} user={user} exact>
+            <EditPost />
             </ProtectedRoute>
             
             

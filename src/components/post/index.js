@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
@@ -6,18 +6,23 @@ import Image from './Image';
 import Actions from './Actions';
 import Footer from './Footer';
 import Comments from './Comments';
+import UserContext from '../../context/user';
+import useUser from '../../hooks/useUser';
+
 
 const Post = ({ content }) => {
 
     const commentInput = useRef(null);
     const handleFocus = () => commentInput.current.focus();
+    const { user: loggedInUser } = useContext(UserContext);
+    const { user } = useUser(loggedInUser?.uid);
+
   
     
 
-
     return (
         <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
-      <Header username={content.username} />
+      <Header loggedInUsername = {user?.username} username={content.username} postId={content.photoId} />
       <Image src={content.imageSrc} caption={content.caption} />
       <Actions
         docId={content.docId}
