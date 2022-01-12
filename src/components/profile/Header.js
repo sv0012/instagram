@@ -65,7 +65,7 @@ const Header = (
                                 e.target.src = DEFAULT_IMAGE_PATH;
                             }}
                         />
-                       {user.username === profileUsername &&  <>
+                       {user?.username === profileUsername &&  <>
                         <Link to={ROUTES.PROPIC_UPLOAD} aria-label="PropicUpload">
                             <button className='absolute bottom-3/4'>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

@@ -4,7 +4,7 @@ import UserContext from '../context/user';
 import { getFollowedPhotos, getUserByUserId, getUserPhotos } from '../services/firebase';
 
 
-const usePhotos = (user) => {
+const usePhotos = () => {
 
     const [photos, setPhotos] = useState(null);
     const {
@@ -40,8 +40,9 @@ const usePhotos = (user) => {
       }
   
       getTimelinePhotos();
-      
-    }, [userId,photos]);
+      console.log(userId)
+      console.log(photos)
+    }, []);
     
 
     return { photos };
