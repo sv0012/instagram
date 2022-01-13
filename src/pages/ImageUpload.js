@@ -91,7 +91,9 @@ const ImageUpload = ({ user }) => {
                             <input className="hidden" id="file" type="file"
                                 onChange={(e) => setImage(e.target.files[0])} />
                             <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >
-                                Choose Image
+                            {
+                            image ? <p>{image.name}</p>  : <p>Choose Image</p>
+                        }
                             </label>
                         </div>
                         <button disabled={isInvalid} type="submit" className={`bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50 cursor-default'}`} >

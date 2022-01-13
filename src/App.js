@@ -1,9 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./pages/Login";
 import * as ROUTES from './constants/routes';
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
 import useAuthListener from "./hooks/useAuthListener";
 import UserContext from "./context/user";
 import IsUserLoggedIn from "./helpers/IsUserLoggedIn";
@@ -47,7 +44,7 @@ function App() {
             </ProtectedRoute>
            
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
-            <Dashboard />
+            <Dashboard user={user} />
             </ProtectedRoute>
             <ProtectedRoute path={ROUTES.EDIT_POST} user={user} exact>
             <EditPost />

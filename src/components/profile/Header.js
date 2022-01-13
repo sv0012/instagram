@@ -56,19 +56,20 @@ const Header = (
         <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
             <div className="container flex justify-center items-center relative">
                 {profileUsername ? (
-                    <>
+                    <><div className=' flex object-contain sm:object-scale-down'>
                         <img
-                            className="rounded-full h-40 w-40 flex absolute top-0 bottom-0 left-0 right-0"
-                            alt={`${fullName} profile picture`}
+                            className="rounded-full px-2  h-20 w-20 md:h-40 md:w-40 lg:h-40 lg:w-40 flex absolute top-0 bottom-0 left-0 right-0"
+                            alt=''
                             src={profilePic}
                             onError={(e) => {
                                 e.target.src = DEFAULT_IMAGE_PATH;
                             }}
                         />
+                        </div>
                        {user?.username === profileUsername &&  <>
-                        <Link to={ROUTES.PROPIC_UPLOAD} aria-label="PropicUpload">
+                        <Link to={`/propic-upload/${user?.username}`} aria-label="PropicUpload">
                             <button className='absolute bottom-3/4'>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                 </svg>
                             </button>

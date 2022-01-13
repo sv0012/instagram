@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   updateLoggedInUserFollowing,
   updateFollowedUserFollowers,
+  getUserByUserId,
 
 } from '../../services/firebase';
 import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
+import LoggedInUserContext from '../../context/loggedInUser';
+
 
 
 
@@ -21,18 +23,20 @@ const SuggestedProfile = ({
 }) => {
 
   const [followed, setFollowed] = useState(false);
+  const { setActiveUser } = useContext(LoggedInUserContext);
   async function handleFollowUser() {
     setFollowed(true);
     await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
     await updateFollowedUserFollowers(profileDocId, userId, false);
-   
+    const [user] = await getUserByUserId(userId);
+    setActiveUser(user);
   }
 
 
 
   return !followed ? (
-    <div className="flex flex-row items-center align-items justify-between">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-row items-center align-items justify-around ">
+      <div className="flex items-center justify-around">
         <img
           className="rounded-full h-8 w-8 flex mr-3"
           src={profilePic}
@@ -43,11 +47,11 @@ const SuggestedProfile = ({
 
         />
         <Link to={`/p/${username}`}>
-          <p className="font-bold text-sm">{username}</p>
+          <p className="font-bold text-sm mr-2">{username}</p>
         </Link>
       </div>
       <button
-        className="text-xs font-bold text-blue-medium"
+        className="text-xs font-bold text-blue-medium mr-1 hidden lg:flex"
         type="button"
         onClick={handleFollowUser}
       >

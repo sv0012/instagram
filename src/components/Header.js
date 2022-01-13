@@ -32,7 +32,7 @@ const Header = () => {
                     <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
                         <h1 className="flex justify-center w-full">
                             <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-                                <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12" />
+                                <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12 lg:w-6/12" />
                             </Link>
                         </h1>
 
@@ -43,7 +43,7 @@ const Header = () => {
                             <>
                                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                                     <svg
-                                        className="w-8 mr-6 text-black-light cursor-pointer"
+                                        className="w-6 lg:w-8 mr-6 text-black-light cursor-pointer"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ const Header = () => {
                                 </Link>
                                 <Link to={ROUTES.IMAGE_UPLOAD} aria-label="ImageUpload">
                                     <svg 
-                                    className="w-8 mr-6 text-black-light cursor-pointer"
+                                    className="w-6 lg:w-8 mr-6 text-black-light cursor-pointer"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                                     </svg>
@@ -75,7 +75,7 @@ const Header = () => {
                                     }}
                                 >
                                     <svg
-                                        className="w-8 mr-6 text-black-light cursor-pointer"
+                                        className="w-6 lg:w-8 mr-6 text-black-light cursor-pointer"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -89,12 +89,12 @@ const Header = () => {
                                         />
                                     </svg>
                                 </button>
-                                <div className="flex items-center cursor-pointer">
+                                <div className=" flex items-center cursor-pointer">
                                     <Link to={`/p/${user?.displayName}`}>
                                         <img
-                                            className="rounded-full h-8 w-8 flex"
+                                            className="rounded-full h-6 w-6 lg:h-8 lg:w-8 flex"
                                             src={activeUser?.imageSrc}
-                                            alt={`${user.displayName} profile`}
+                                            alt=''
                                             onError={(e) => {
                                                 e.target.src = DEFAULT_IMAGE_PATH;
                                             }}

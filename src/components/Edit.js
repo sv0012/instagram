@@ -139,7 +139,7 @@ const Edit = ({ caption, imageSrc, docId }) => {
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
         <img
                         className=" h-100 w-100 flex mb-4"
-                        alt='Post Picture'
+                        alt=''
                         src={preview}
                         onError={(e) => {
                             e.target.src = DEFAULT_IMAGE_PATH;

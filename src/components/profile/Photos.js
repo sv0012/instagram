@@ -10,7 +10,7 @@ const Photos = ({ photos }) => {
                     ? new Array(12).fill(0).map((_, i) => <Skeleton key={i} width={320} height={400} />)
                     : photos.length > 0
                         ? photos.map((photo) => (
-                            <div key={photo.docId} className="relative group">
+                            <div key={photo.docId} className="relative group px-2">
                                 <img src={photo.imageSrc} alt={photo.caption} />
 
                                 <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden">

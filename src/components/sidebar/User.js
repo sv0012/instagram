@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
-import UserContext from '../../context/user';
-import { useContext } from 'react';
+
 
 
 export default function User({ imageSrc, username, fullName }) {
@@ -15,7 +14,7 @@ export default function User({ imageSrc, username, fullName }) {
     <Link to={`/p/${username}`} className="grid grid-cols-4 gap-4 mb-6 items-center">
       <div className="flex items-center justify-between col-span-1">
         <img
-          className="rounded-full h-16 w-16 flex mr-3"
+          className="rounded-full h-8 w-8 lg:h-16 lg:w-16 flex mr-3"
           src={imageSrc}
           alt=""
           onError={(e) => {

@@ -1,51 +1,52 @@
-import React, { useContext } from 'react';
+
 import { useState, useEffect } from 'react';
-import UserContext from '../context/user';
-import { getFollowedPhotos, getUserByUserId, getUserPhotos } from '../services/firebase';
+
+import { getFollowedPhotos, getUserPhotos } from '../services/firebase';
 
 
-const usePhotos = () => {
+const usePhotos = (user) => {
 
     const [photos, setPhotos] = useState(null);
-    const {
-      user : {uid: userId = ''}
-    } = useContext(UserContext);
+    
+    
+   
+   
 
     useEffect(() => {
       async function getTimelinePhotos() {
-       const [{ following }] = await getUserByUserId(userId);
-       let followedUserPhotos = [];
-       let userPhotos = [];
-       let followedAndUserPhotos = [];
-
-      
-       //does the user follow people
-        if(following.length > 0) {
-          followedUserPhotos = await getFollowedPhotos(userId,following);
-
+        
+        let followedUserPhotos = [];
+        let userPhotos = [];
+        let followedAndUserPhotos = [];
+        
+       
+        //does the user follow people
+        if(user?.following?.length > 0) {
+           followedUserPhotos = await getFollowedPhotos(user?.userId,user?.following);
+        }
+         
+         
+        if(user?.userId) {
+         userPhotos = await getUserPhotos(user?.userId);
         }
         
-
-        userPhotos = await getUserPhotos(userId);
-
-       
-
-        
-        followedAndUserPhotos = [...followedUserPhotos,...userPhotos];
-      
-
-        followedAndUserPhotos.sort((a,b)=>b.dateCreated - a.dateCreated);
-        setPhotos(followedAndUserPhotos);
-
-      }
   
-      getTimelinePhotos();
-      console.log(userId)
-      console.log(photos)
-    }, []);
+         
+         followedAndUserPhotos = [...followedUserPhotos,...userPhotos];
+       
+  
+         followedAndUserPhotos.sort((a,b)=>b.dateCreated - a.dateCreated);
+         setPhotos(followedAndUserPhotos);
+         
+       }
+  
+      getTimelinePhotos()
+      
+    
+    }, [user?.userId,user?.following]);
     
 
-    return { photos };
+    return  photos ;
 }
 
-export default usePhotos
+export default usePhotos;

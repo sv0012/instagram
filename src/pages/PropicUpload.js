@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header'
 import FirebaseContext from '../context/firebase';
 import { storage } from '../lib/firebase';
-import * as ROUTES from '../constants/routes';
 import UserContext from '../context/user';
 import useUser from '../hooks/useUser';
 
@@ -15,10 +14,10 @@ const PropicUpload = () => {
     const [pic, setPic] = useState("");
     const isInvalid = pic === '';
     
-    console.log(user?.docId)
+    
 
     useEffect(() => {
-        document.title = 'Upload Profile Picture  - Instagram';
+        document.title = 'Instagram';
     }, [])
 
     const uploadImage = (e) => {
@@ -42,7 +41,7 @@ const PropicUpload = () => {
                                 imageSrc: durl,
                             });
             
-                            history.push(ROUTES.DASHBOARD);
+                            history.goBack()
             
                         } catch (error) {
                            
@@ -58,6 +57,8 @@ const PropicUpload = () => {
         };
 
 
+console.log(pic);
+
     return (
         <div className="bg-gray-background">
         <Header />
@@ -71,8 +72,10 @@ const PropicUpload = () => {
 
                         <input className="hidden" id="file" type="file"
                             onChange={(e) => setPic(e.target.files[0])} />
-                        <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >
-                            Choose Image
+                        <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >{
+                            pic ? <p>{pic.name}</p>  : <p>Choose Image</p>
+                        }
+                            
                         </label>
                     </div>
                     <button disabled={isInvalid} type="submit" className={`bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50 cursor-default'}`} >
