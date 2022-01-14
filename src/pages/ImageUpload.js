@@ -88,7 +88,7 @@ const ImageUpload = ({ user }) => {
                         </div>
                         <div className="flex w-full">
 
-                            <input className="hidden" id="file" type="file"
+                            <input className="hidden" id="file" type="file"  accept="image/png, image/jpeg"
                                 onChange={(e) => setImage(e.target.files[0])} />
                             <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >
                             {

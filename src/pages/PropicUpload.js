@@ -70,7 +70,7 @@ console.log(pic);
                 <form className="flex flex-col w-full" onSubmit={uploadImage} method="POST">
                     <div className="flex w-full">
 
-                        <input className="hidden" id="file" type="file"
+                        <input className="hidden" id="file" type="file" accept="image/png, image/jpeg"
                             onChange={(e) => setPic(e.target.files[0])} />
                         <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >{
                             pic ? <p>{pic.name}</p>  : <p>Choose Image</p>

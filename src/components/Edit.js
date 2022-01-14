@@ -159,7 +159,7 @@ const Edit = ({ caption, imageSrc, docId }) => {
                 </div>
                 <div className="flex w-full">
 
-                    <input className="hidden" id="file" type="file"
+                    <input className="hidden" id="file" type="file" accept="image/png, image/jpeg"
                         onChange={handleChange} />
                     <label for="file" className="text-gray-base text-center w-full border border-gray-primary rounded h-12 font-bold cursor-pointer pt-2 mb-2"  >
                         Choose Image
