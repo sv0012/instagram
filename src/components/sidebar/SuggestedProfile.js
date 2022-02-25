@@ -35,7 +35,7 @@ const SuggestedProfile = ({
 
 
   return !followed ? (
-    <div className="flex flex-row items-center align-items justify-around ">
+    <div className="flex flex-row items-center align-items justify-between ">
       <div className="flex items-center justify-around">
         <img
           className="rounded-full h-8 w-8 flex mr-3"
