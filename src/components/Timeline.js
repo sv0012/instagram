@@ -20,17 +20,17 @@ const Timeline = () => {
   );
   
   const photos = usePhotos(user);
-  
+  console.log(photos)
 
   return (
     <div className="container col-span-2">
     {following===undefined ?(
       <Skeleton count={2} width={640} height={500} className="mb-5" />
-    ) : photos? (
-      photos.map((content) => <Post key={content.docId} content={content} />)          
-     ) : photos?.length===0 ?(
+    ) :  photos?.length===0 ? (
       <p className="flex justify-center font-bold">Follow other people to see Photos</p>
-    ) : null}
+    ) : photos ? (
+      photos.map((content) => <Post key={content.docId} content={content} />)          
+     ) : null}
 
     
   </div>
